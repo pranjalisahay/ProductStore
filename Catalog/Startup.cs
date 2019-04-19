@@ -8,6 +8,7 @@ using Catalog.Models;
 using Catalog.Events;
 using Microsoft.Extensions.Logging;
 
+
 namespace Catalog
 {
     public class Startup
@@ -36,6 +37,8 @@ namespace Catalog
             services.AddSingleton<AMQPOptions>();
             services.AddSingleton(typeof(IEventEmitter), typeof(AMQPEventEmitter));
             services.AddSingleton(typeof(ICommandEventConverter), typeof(CommandEventConverter));
+            
+
 
         }
 

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using ProductQueryApi.Models;
 using ProductQueryApi.Queues;
 using ProductQueryApi.Repository;
+using ProductQueryModels;
 
 namespace ProductQueryApi.Events
 {
@@ -17,19 +18,26 @@ namespace ProductQueryApi.Events
         public NewProductEventProcessor(
             ILogger<NewProductEventProcessor> logger,
             IEventSubscriber eventSubscriber,
-            IProductRepository productRepository
+            IProductManagementRepository productRepository
         )
         {
             this.logger = logger;
             this.subscriber = eventSubscriber;
             this.subscriber.ProductAddedEventReceived += (prd) => {
-
-                productRepository.Add(new Product()
+                if (prd?.Product != null)
                 {
-                    Name = prd.Name,
-                    ProductId = prd.ProductId,
-                    Category = prd.Category
-                });
+                    productRepository.AddProduct(prd.Product);
+                }
+                else if(prd?.Catagory!=null)
+                {
+                    productRepository.AddCatagory(prd.Catagory);
+                }
+                //productRepository.Add(new Product()
+                //{
+                //    ProductName = prd.Name,
+                //    ProductId = prd.ProductId,
+                //    Catagory = prd.Category
+                //});
             };
         }
 

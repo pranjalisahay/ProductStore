@@ -1,9 +1,9 @@
+using Catalog.Events;
 using Catalog.Models;
+using Catalog.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using Catalog.Repository;
-using Catalog.Events;
 
 namespace Catalog.Controllers
 {
